@@ -5,12 +5,13 @@ import SimpleHTTPServer
 import SocketServer
 
 class Proxy(SimpleHTTPServer.SimpleHTTPRequestHandler):
-  def do_GET(self):
-    print(self.requestline)
-    for (k,v) in self.headers.items():
-        print('%s: %s' % (k, v))
-    print('')
-    self.copyfile(urllib.urlopen(self.path), self.wfile)
+    def do_GET(self):
+        """Logs and forwards HTTP GET requests."""
+        print(self.requestline)
+        for (k,v) in self.headers.items():
+            print('%s: %s' % (k, v))
+        print('')
+        self.copyfile(urllib.urlopen(self.path), self.wfile)
 
 
 def main(args):
